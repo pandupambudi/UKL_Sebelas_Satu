@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <nav>
+        <div class="wrapper">
+            <div class="logo"><a href="">VolleyballHub</a></div>
+            <div class="menu">
+                <ul>
+                    <li><a href="/logoutAdmin" class="tbl-biru">Log Out</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <table>
+        <ul>
+            <tr>
+                
+                <th>Name</th>
+                <th>Email</th>
+                <th>Password</th>
+            </tr>
+            <tr>
+                <% for( const a of user){ %>
+            <tr>
+                <td>
+                    <%=a.name %>
+                </td>
+                <td>
+                    <%=a.email %>
+                </td>
+                <td>
+                    <%=a.password %>
+                </td>
+                <td ><a href="/delete/<%= a.id %>">Delete</a></td>
+                <td ><a href="/edit/<%= a.id %>">Edit</a></td>
+            </tr>
+            <% } %>
+        </ul>
+    </table>
+    <div>
+        <p><a href="/admin" class="tbl-biru">Back</a></p>
+    </div>
+</body>
+</html>

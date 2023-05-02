@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="userTran.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+<body style="background-color: #ffffff;">
+    <main class="container">
+      <nav>
+        <div class="wrapper">
+            <div class="logo"><a href="">VolleyballHub</a></div>
+        </div>
+    </nav>
+        <div class="p-4 p-md-5 mb-3 flex" id="bioPage" style="background-color: gray; border-radius: 2% ;">
+          <h3 class="subJudul mb-5 text-center" id="coursePage">Inventory</h3>
+  
+          <form action="/items/tambah" method="post">
+            <div class="p-4 mt-4 bg-white shadow-lg">
+              <h4 class="subJudul mb-4 mt-2" id="coursePage">Add Item</h4>
+          
+              <div class="form">
+                <p style="font-family: poppins;">Product Name</p>
+                <input type="text" name="name" class="form-control mb-3" placeholder="Nama" required>
+              </div>
+          
+              <div class="form">
+                <p style="font-family: poppins;">Product Price</p>
+                <input type="text" name="harga" class="form-control mb-3" placeholder="Harga" required>
+              </div>
+  
+              <div class="form">
+                <p style="font-family: poppins;">Product Image</p>
+                <input type="file" name="gambar" class="form-control mb-4" required>
+              </div>
+              
+              <button 
+                class="w-100 btn btn-lg btn-primary" 
+                style="background-color: green ; border: transparent;" 
+                type="submit">
+                  Add
+              </button>
+            </div>
+          </form>
+  
+          <section class="p-4 mt-4 bg-white shadow-lg">
+            <h4 class="subJudul mb-3" id="coursePage">Update Item's Stock</h4>
+              <form action="/items/tarik" method="post">
+                  <div class="flex items-center">
+                      <select name="type" class="w-1/5 w-full border px-3 py-2 text-sm mr-2 bg-white">
+                          <option value="masuk">Stok Masuk</option>
+                          <option value="ditarik">Stok Ditarik</option>
+                      </select>
+                      <select placeholder="Paket Item" name="item_id" class="w-2/5 w-full border px-3 py-2 text-sm mr-2 bg-white">
+                          <% for (item of items) { %>
+                              <option value="<%= item.id %>"><%= item.name %></option>
+                          <% } %>
+                      </select>
+                      <input type="number" name="amount" value="0" class="w-1/5 w-full border px-3 py-2 text-sm mr-2 bg-white">
+                      <button 
+                      class="w-1/5 bg-slate-500 text-white px-3 py-2 border text-sm font-bold tracking-widest hover:bg-slate-600"
+                      style="background-color: green ; border: transparent;" >
+                      Submit
+                      </button>
+                  </div>
+              </form>
+          </section>
+  
+          
+          <section class="p-4 mt-4 bg-white shadow-lg">
+            <h4 class="subJudul mb-3" id="coursePage">Cart's Item List</h4>
+            <h6>Note: Delete the pembukuan database if you encounter an error</h6>
+            <table class="border" cellpadding="10">
+              <ul>
+                  <tr>
+                      <th class="border"> Item's Name </th>
+                      <th class="border"> Item's Price</th>
+                      <th class="border"> Item's Stock</th>
+                      <th class="border"> Item Image</th>
+                  </tr>
+                  <% for (item of items) { %>
+                      <tr>
+                          <th class="border"> <%= item.name %> </th>
+                          <th class="border"> Rp.<%= item.harga %> </th>
+                          <th class="border"> <%= item.qty %> pcs </th>
+                          <th class="border"><img width="100px" height="100px" src="<%= item.gambar %>"></th>
+                          <th class="border"><a href="/deleteStok/<%= item.id %>">Delete</a></th>
+                      </tr>
+                  <% } %>
+              </ul>
+            </table>
+          </section>
+  
+          <section class="p-4 mt-4 bg-white shadow-lg">
+            <h4 class="subJudul mb-3" id="coursePage">Stock History</h4>
+            <table class="border" cellpadding="10">
+              <ul>
+                  <tr>
+                      <th class="border"> Name </th>
+                      <th class="border"> Type </th>
+                      <th class="border"> Item's Name </th>
+                      <th class="border"> Amount </th>
+                      <th class="border"> Time </th>
+                  </tr>
+                  <% for (log of pembukuan) { %>
+                      <tr>
+                          <th class="border"> <%= log.name %> </th>
+                          <th class="border"> <%= log.type %> </th>
+                          <th class="border"> <%= items.find(item => item.id === log.item_id).name %> </th>
+                          <th class="border"> <%= log.amount %> pcs </th>
+                          <th class="border"> <%= log.create_time%></th>
+                          <th class="border"><a href="/deleteHistory/<%= log.id %>">Delete</a></th>
+                      </tr>
+                  <% } %>
+              </ul>
+            </table>
+          </section>
+        </div>
+        <div>
+          <p><a href="/admin" class="tbl-pink">Back</a></p>
+        </div>
+      </main>
+</body>
+</html>

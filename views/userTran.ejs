@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="userTran.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+<body class="bg-stone-200">
+  <nav>
+    <div class="wrapper">
+        <div class="logo"><a href="">VolleyballHub</a></div>
+    </div>
+</nav>
+
+    <h3 class="subJudul mb-3" id="shopPage">Store</h3>
+    <div class="album py-5 bg-light mb-5">
+      <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          <% for (item of items) { %>
+          <div class="col p-3">
+            <div class="card" style="border-radius:10px; align-items: center;">
+              <img width="295px" height="295px" src="<%= item.gambar %>">
+              <div class="card-body" style="align-items: center;">
+                <h4 class="card-title"><%= item.name %></h4>
+                <h6 class="card-title"> Rp. <%= item.harga %></h6>
+                <div class="d-flex justify-content-between align-items-center">
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } %>
+        </div>
+        <form action="/items/beli" method="post" id="formCheckout">
+          <h3 class="subJudul mt-5 mb-4" id="projectPage">Purchase Form</h3>
+          <div class="flex items-center">
+              <input type="text" class="w-1/5 w-full border px-3 py-2 text-sm mr-2 bg-white" name="name" placeholder="User" >
+              <select name="type" class="w-1/5 w-full border px-3 py-2 text-sm mr-2 bg-white">
+                  <option value="dibeli">Purchased</option>
+              </select>
+              <select placeholder="Paket Item" name="item_id" class="w-2/5 w-full border px-3 py-2 text-sm mr-2 bg-white">
+                  <% for (item of items) { %>
+                      <option value="<%= item.id %>"><%= item.name %></option>
+                  <% } %>
+              </select>
+              <input type="number" name="amount" value="0" class="w-1/5 w-full border px-3 py-2 text-sm mr-2 bg-white">
+              <button
+              class="w-30 btn btn-lg btn-primary"
+              style="background-color: green; font-size: 15px; border: transparent;" 
+              onclick="alert('Purchase Success!')">
+              Buy
+              </button>
+          </div>
+        </form>
+      </div>
+      <div>
+        <p style="margin-top: 50px;"><a href="/tampilan" class="tbl-pink" style="margin-left: 105px;" >Back</a></p>
+      </div>
+    </div>
+</body>
+</html>
